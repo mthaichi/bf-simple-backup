@@ -1,4 +1,4 @@
-name: PHPUnit
+name: Tests (wp-env)
 
 on:
   push:
@@ -9,46 +9,24 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [ '7.4', '8.1' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          php-version: ${{ matrix.php }}
-          coverage: none
+          node-version: '18'
 
-      - name: Install dependencies
-        run: |
-          composer install --no-interaction --no-progress --prefer-dist
+      - name: Install npm dependencies
+        run: npm ci || npm install
 
-      - name: Run unit tests (WP_Mock)
-        run: |
-          composer test:unit
+      - name: Start wp-env
+        run: npm run wp-env:start
 
-      - name: Start MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: '5.7'
-          mysql root password: 'root'
-          mysql database: 'wordpress_test'
+      - name: Run tests in wp-env
+        run: npm run test:env
 
-      - name: Wait for MySQL
-        run: |
-          for i in `seq 1 30`; do
-            (echo > /dev/tcp/127.0.0.1/3306) >/dev/null 2>&1 && break
-            sleep 1
-          done
-
-      - name: Run wp-phpunit tests
-        env:
-          DB_NAME: wordpress_test
-          DB_USER: root
-          DB_PASSWORD: root
-          DB_HOST: 127.0.0.1
-        run: |
-          composer test:wp
+      - name: Stop wp-env
+        if: always()
+        run: npm run wp-env:stop
