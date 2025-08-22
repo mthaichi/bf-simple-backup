@@ -20,3 +20,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 // 直接読み込む必要のあるクラス。
 /** @psalm-suppress UnresolvableInclude */
 require_once $root . '/inc/Model/BackupConfig.php';
+/** @psalm-suppress UnresolvableInclude */
+require_once $root . '/inc/Model/DatabaseDumper.php';
