@@ -24,4 +24,17 @@
    - ユニット（WP_Mock）: `composer test:unit`
    - 統合（wp-phpunit）: ローカルでMySQLを起動し、`composer test:wp`
    - まとめて: `composer test`
+
+## wp-env を使った統合テスト（推奨ローカル環境）
+- 前提: Docker と Node.js/npm がインストール済み
+- 初回セットアップ:
+  - `npm install` （`@wordpress/env` を取得）
+- 起動/停止/破棄:
+  - 起動: `npm run wp-env:start`
+  - 停止: `npm run wp-env:stop`
+  - 破棄: `npm run wp-env:destroy`（ボリューム削除）
+- コンテナ内で統合テスト実行（MySQL/WordPress 同梱）:
+  - `npm run test:wp:env`
+  - これは tests コンテナ内で `composer install` 実行後、`phpunit.wp.xml` を用いてテストします。
+
 5. PR作成（テンプレートに従う）

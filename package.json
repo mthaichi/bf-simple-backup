@@ -1,0 +1,14 @@
+{
+  "name": "bf-simple-backup",
+  "private": true,
+  "devDependencies": {
+    "@wordpress/env": "^9.5.0"
+  },
+  "scripts": {
+    "wp-env:start": "wp-env start",
+    "wp-env:stop": "wp-env stop",
+    "wp-env:destroy": "wp-env destroy --remove-volumes",
+    "test:wp:env": "wp-env run tests \"bash -lc 'composer install && vendor/bin/phpunit -c phpunit.wp.xml'\""
+  }
+}
+

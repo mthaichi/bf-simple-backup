@@ -1,0 +1,25 @@
+{
+  "core": null,
+  "phpVersion": "7.4",
+  "mysqlVersion": "5.7",
+  "plugins": [
+    "."
+  ],
+  "mappings": {
+    "vendor": "./vendor",
+    "composer.json": "./composer.json",
+    "phpunit.xml.dist": "./phpunit.xml.dist",
+    "phpunit.wp.xml": "./phpunit.wp.xml"
+  },
+  "port": 8888,
+  "testsPort": 8889,
+  "config": {
+    "WP_DEBUG": true
+  },
+  "env": {
+    "tests": {
+      "WP_DEBUG": true
+    }
+  }
+}
+
