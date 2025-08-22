@@ -20,6 +20,8 @@
 1. 課題作成（Issue）
 2. ブランチ作成（`feature/xxx` など）
 3. 実装 + テスト追加
-4. `composer install` して `composer test` でテスト実行
+4. `composer install` してテスト実行
+   - ユニット（WP_Mock）: `composer test:unit`
+   - 統合（wp-phpunit）: ローカルでMySQLを起動し、`composer test:wp`
+   - まとめて: `composer test`
 5. PR作成（テンプレートに従う）
-
